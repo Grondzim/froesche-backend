@@ -1,6 +1,7 @@
 package de.froesche.nz.database;
 
 import de.froesche.nz.database.resultwrapper.ResultWrapper;
+import de.froesche.nz.querybuilder.QueryBuilder;
 
 import java.sql.SQLException;
 

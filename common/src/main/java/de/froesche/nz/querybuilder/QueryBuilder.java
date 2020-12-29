@@ -20,7 +20,7 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
     public class Insert implements QueryElement<String []>{
         private String[] values;
 
-        Insert(String... values){
+        protected Insert(String... values){
             this.values = values;
         }
 
@@ -38,7 +38,7 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
     public class Select implements QueryElement<String[]>{
         private String[] columns;
 
-        Select(String... columns){
+        protected Select(String... columns){
             this.columns = columns;
         }
 
@@ -56,7 +56,7 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
     public class From implements QueryElement<Map<String,String>>{
         private Map<String,String> from;
 
-        From(Map<String,String> from){
+        protected From(Map<String,String> from){
             this.from=from;
         }
 
@@ -74,7 +74,7 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
     public class Into implements QueryElement<String>{
         private String table;
 
-        Into(String table){
+        private Into(String table){
             this.table=table;
         }
 
@@ -88,8 +88,8 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new EQUALS(column,value);
     }
 
-    private static class EQUALS extends AbstractCondition<String,String> {
-        public EQUALS(String column, String value) {
+    public static class EQUALS extends AbstractCondition<String,String> {
+        private EQUALS(String column, String value) {
             super(column, value);
         }
     }
@@ -98,8 +98,8 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new NOTEQUALS(column,value);
     }
 
-    private static class NOTEQUALS extends AbstractCondition<String,String> {
-        public NOTEQUALS(String column, String value) {
+    public static class NOTEQUALS extends AbstractCondition<String,String> {
+        private NOTEQUALS(String column, String value) {
             super(column, value);
         }
     }
@@ -108,8 +108,8 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new BIGGERTHAN(column,value);
     }
 
-    private static class BIGGERTHAN extends AbstractCondition<String,String> {
-        public BIGGERTHAN(String column, String value) {
+    public static class BIGGERTHAN extends AbstractCondition<String,String> {
+        private BIGGERTHAN(String column, String value) {
             super(column, value);
         }
     }
@@ -118,8 +118,8 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new SMALLERTHANOREQUALS(column,value);
     }
 
-    private static class SMALLERTHANOREQUALS extends AbstractCondition<String, String> {
-        public SMALLERTHANOREQUALS(String column, String value) {
+    public static class SMALLERTHANOREQUALS extends AbstractCondition<String, String> {
+        private SMALLERTHANOREQUALS(String column, String value) {
             super(column, value);
         }
     }
@@ -128,8 +128,8 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new IN(column,value);
     }
 
-    private static class IN extends AbstractCondition<String, Object> {
-        public IN(String column, Object value) {
+    public static class IN extends AbstractCondition<String, Object> {
+        private IN(String column, Object value) {
             super(column, value);
         }
     }
@@ -138,8 +138,8 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new NOTIN(column,value);
     }
 
-    private static class NOTIN extends AbstractCondition<String, Object> {
-        public NOTIN(String column, Object value) {
+    public static class NOTIN extends AbstractCondition<String, Object> {
+        private NOTIN(String column, Object value) {
             super(column, value);
         }
     }
@@ -148,9 +148,9 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new AND(abstractConditions);
     }
 
-    private static class AND implements IsCondition<AbstractCondition[]> {
+    public static class AND implements IsCondition<AbstractCondition[]> {
         private AbstractCondition[] queryElements;
-        public AND(AbstractCondition... abstractConditions){
+        private AND(AbstractCondition... abstractConditions){
             this.queryElements = abstractConditions;
         }
 
@@ -164,9 +164,9 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
         return new OR(abstractConditions);
     }
 
-    private static class OR implements IsCondition<AbstractCondition[]> {
+    public static class OR implements IsCondition<AbstractCondition[]> {
         private AbstractCondition[] queryElements;
-        public OR(AbstractCondition... abstractConditions){
+        private OR(AbstractCondition... abstractConditions){
             this.queryElements = abstractConditions;
         }
 

@@ -2,19 +2,18 @@ package de.froesche.nz.datasources;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.froesche.nz.action.UserAction;
-import de.froesche.nz.database.QueryBuilder;
 import de.froesche.nz.database.dto.Person;
 import de.froesche.nz.database.resultwrapper.MongoDBResultWrapper;
+import de.froesche.nz.querybuilder.QueryBuilder;
+import de.froesche.nz.querybuilder.SelectQueryBuilder;
 import org.bson.Document;
 
 import java.sql.SQLException;
 import java.util.*;
 
-import static de.froesche.nz.database.DatabaseConnector.TABLE_PERSON;
-import static de.froesche.nz.database.QueryBuilder.SELECT_ALL;
-
 public class PersonDatasource extends AbstractDBDatasource<UserAction> {
 
+    private static final Map<String,String> TABLENAMES = Map.of("person","");
 
     @Override
     protected void getMongoDBResult(UserAction action, MongoDBResultWrapper mongoDBResultWrapper) {
@@ -31,12 +30,12 @@ public class PersonDatasource extends AbstractDBDatasource<UserAction> {
     }
 
     public void getAllPerson(UserAction action) throws SQLException {
-        queryBuilder = QueryBuilder.createQuery().select(SELECT_ALL).from(TABLE_PERSON).build();
+        queryBuilder = SelectQueryBuilder.query().select("SELECT_ALL").from(TABLENAMES).where(null);
         execute(action);
     }
 
     public void getPersonByUsername(UserAction action, String username) throws SQLException {
-        queryBuilder = QueryBuilder.createQuery().select(SELECT_ALL).from(TABLE_PERSON).where("name", username).build();
+        queryBuilder = SelectQueryBuilder.query().select("SELECT_ALL").from(TABLENAMES).where(QueryBuilder.equals("name", username));
         execute(action);
     }
 }

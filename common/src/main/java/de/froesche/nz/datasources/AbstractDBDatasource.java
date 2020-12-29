@@ -3,15 +3,12 @@ package de.froesche.nz.datasources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.froesche.nz.action.FroescheAction;
 import de.froesche.nz.database.DatabaseConnector;
-import de.froesche.nz.database.QueryBuilder;
 import de.froesche.nz.database.StaticDatabaseConnector;
 import de.froesche.nz.database.resultwrapper.MongoDBResultWrapper;
 import de.froesche.nz.database.resultwrapper.ResultWrapper;
-import org.bson.Document;
+import de.froesche.nz.querybuilder.QueryBuilder;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public abstract class AbstractDBDatasource<T extends FroescheAction/*, S extends DatabaseConnector*/> {
