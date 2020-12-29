@@ -4,7 +4,7 @@ import de.froesche.nz.database.dto.Person;
 
 import java.util.List;
 
-public class UserAction implements FroescheAction{
+public class PersonAction implements FroescheAction{
 
     private List<Person> personList;
 
