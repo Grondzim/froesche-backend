@@ -1,6 +1,6 @@
 package de.froesche.nz.querybuilder;
 
-public class SelectQueryBuilder extends QueryBuilder<SelectQueryBuilder>{
+public class SelectQueryBuilder extends AbstractQueryBuilder<SelectQueryBuilder> {
 
     @Override
     protected SelectQueryBuilder buildQuery() {

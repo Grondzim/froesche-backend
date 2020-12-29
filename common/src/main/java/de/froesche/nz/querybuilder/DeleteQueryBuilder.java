@@ -2,7 +2,7 @@ package de.froesche.nz.querybuilder;
 
 import java.util.Map;
 
-public class DeleteQueryBuilder extends QueryBuilder<DeleteQueryBuilder>{
+public class DeleteQueryBuilder extends AbstractQueryBuilder<DeleteQueryBuilder> {
     @Override
     protected DeleteQueryBuilder buildQuery() {
         return new DeleteQueryBuilder(fromBuilder, isConditionBuilder);

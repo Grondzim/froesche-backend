@@ -8,7 +8,6 @@ import com.mongodb.client.MongoDatabase;
 import de.froesche.nz.database.resultwrapper.MongoDBResultWrapper;
 import de.froesche.nz.querybuilder.*;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -59,7 +57,7 @@ public class MongoDBConnector implements DatabaseConnector<MongoDBResultWrapper>
     }
 
 
-    public MongoDBResultWrapper executeQuery(QueryBuilder query) {
+    public MongoDBResultWrapper executeQuery(AbstractQueryBuilder query) {
         MongoDatabase database = mongoClient.getDatabase("froesche");
         Document filter = new Document();
         MongoCollection<Document> col = null;
@@ -70,8 +68,8 @@ public class MongoDBConnector implements DatabaseConnector<MongoDBResultWrapper>
 
             IsCondition isCondition = selectQueryBuilder.getConditions();
 
-            if (isCondition instanceof QueryBuilder.EQUALS){
-                QueryBuilder.EQUALS equals = (QueryBuilder.EQUALS) isCondition;
+            if (isCondition instanceof AbstractQueryBuilder.EQUALS){
+                AbstractQueryBuilder.EQUALS equals = (AbstractQueryBuilder.EQUALS) isCondition;
                 filter.append(equals.getColumn(), equals.getValue());
             }
 

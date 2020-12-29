@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import de.froesche.nz.action.UserAction;
 import de.froesche.nz.database.dto.Person;
 import de.froesche.nz.database.resultwrapper.MongoDBResultWrapper;
-import de.froesche.nz.querybuilder.QueryBuilder;
+import de.froesche.nz.querybuilder.AbstractQueryBuilder;
 import de.froesche.nz.querybuilder.SelectQueryBuilder;
 import org.bson.Document;
 
@@ -35,7 +35,7 @@ public class PersonDatasource extends AbstractDBDatasource<UserAction> {
     }
 
     public void getPersonByUsername(UserAction action, String username) throws SQLException {
-        queryBuilder = SelectQueryBuilder.query().select("SELECT_ALL").from(TABLENAMES).where(QueryBuilder.equals("name", username));
+        queryBuilder = SelectQueryBuilder.query().select("SELECT_ALL").from(TABLENAMES).where(AbstractQueryBuilder.equals("name", username));
         execute(action);
     }
 }

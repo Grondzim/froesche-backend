@@ -1,7 +1,7 @@
 package de.froesche.nz.database;
 
 import de.froesche.nz.database.resultwrapper.ResultWrapper;
-import de.froesche.nz.querybuilder.QueryBuilder;
+import de.froesche.nz.querybuilder.AbstractQueryBuilder;
 
 import java.sql.SQLException;
 
@@ -13,5 +13,5 @@ public interface DatabaseConnector<T extends ResultWrapper> {
 
     public void closeConnection();
 
-    public T executeQuery(QueryBuilder query);
+    public T executeQuery(AbstractQueryBuilder query);
 }

@@ -1,6 +1,6 @@
 package de.froesche.nz.querybuilder;
 
-public class InsertQueryBuilder extends QueryBuilder<InsertQueryBuilder>{
+public class InsertQueryBuilder extends AbstractQueryBuilder<InsertQueryBuilder> {
 
 
     public static SelectQueryBuilder query(){

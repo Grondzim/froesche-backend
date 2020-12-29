@@ -6,7 +6,7 @@ import de.froesche.nz.database.DatabaseConnector;
 import de.froesche.nz.database.StaticDatabaseConnector;
 import de.froesche.nz.database.resultwrapper.MongoDBResultWrapper;
 import de.froesche.nz.database.resultwrapper.ResultWrapper;
-import de.froesche.nz.querybuilder.QueryBuilder;
+import de.froesche.nz.querybuilder.AbstractQueryBuilder;
 
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -15,7 +15,7 @@ public abstract class AbstractDBDatasource<T extends FroescheAction/*, S extends
 
     protected Logger logger = Logger.getLogger(String.valueOf(getClass()));
     protected ObjectMapper objectMapper = new ObjectMapper();
-    protected QueryBuilder queryBuilder;
+    protected AbstractQueryBuilder queryBuilder;
     protected DatabaseConnector databaseConnector;
 
     public AbstractDBDatasource(){

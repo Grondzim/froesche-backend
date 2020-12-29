@@ -3,7 +3,7 @@ package de.froesche.nz.querybuilder;
 import java.util.Map;
 
 
-public abstract class QueryBuilder<T extends QueryBuilder> {
+public abstract class AbstractQueryBuilder<T extends AbstractQueryBuilder> {
 
     protected Select selectBuilder;
     protected Insert insertBuilder;
@@ -12,7 +12,7 @@ public abstract class QueryBuilder<T extends QueryBuilder> {
     protected IsCondition isConditionBuilder;
 
 
-    protected QueryBuilder(){
+    protected AbstractQueryBuilder(){
     }
 
     protected abstract T buildQuery();
