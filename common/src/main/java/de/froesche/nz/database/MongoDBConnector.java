@@ -75,6 +75,23 @@ public class MongoDBConnector implements DatabaseConnector<MongoDBResultWrapper>
                 filter.append(equals.getColumn(), equals.getValue());
             }
 
+            List<Document> result = new ArrayList<>();
+
+            if (!Objects.isNull(col)){
+                if(!filter.isEmpty()){
+                    col.find(filter).forEach((Consumer<? super Document>) document -> {
+                        result.add(document);
+                    });
+                }else {
+                    col.find().forEach((Consumer<? super Document>) document -> {
+                        result.add(document);
+                    });
+                }
+            }
+            //Iterable<Bson> filter = query.getQueryCondition().stream().map(fi -> new Document(fi.getColumn(),fi.getWhereClausal())).collect(Collectors.toList());
+
+            return new MongoDBResultWrapper(result);
+
         } else if (query instanceof InsertQueryBuilder) {
             InsertQueryBuilder insertQueryBuilder = (InsertQueryBuilder)query;
 
@@ -83,22 +100,7 @@ public class MongoDBConnector implements DatabaseConnector<MongoDBResultWrapper>
 
         }
 
-        List<Document> result = new ArrayList<>();
-
-        if (!Objects.isNull(col)){
-            if(!filter.isEmpty()){
-                col.find(filter).forEach((Consumer<? super Document>) document -> {
-                    result.add(document);
-                });
-            }else {
-                col.find().forEach((Consumer<? super Document>) document -> {
-                    result.add(document);
-                });
-            }
-        }
-        //Iterable<Bson> filter = query.getQueryCondition().stream().map(fi -> new Document(fi.getColumn(),fi.getWhereClausal())).collect(Collectors.toList());
-
-        return new MongoDBResultWrapper(result);
+        return null;
     }
 
 

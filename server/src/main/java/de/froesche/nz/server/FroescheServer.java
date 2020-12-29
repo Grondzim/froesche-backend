@@ -37,88 +37,17 @@ public class FroescheServer {
         connector.setPort(18080);
         froescheServer.setConnectors(new Connector[] {connector});
 
-
-/*
-        WebAppContext webAppContext = new WebAppContext();
-      //  ServletContextHandler contextHandler = new ServletContextHandler();
-        webAppContext.setContextPath("/rest");
-        webAppContext.setResourceBase("server/src/main/resources/webapp/");
-        webAppContext.setDescriptor("server/src/main/resources/webapp/WEB-INF/web.xml");
-        webAppContext.setServer(froescheServer);
-
-        WebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
-
-
-
-        DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext);
-        ServletHolder servletHolder = new ServletHolder(dispatcherServlet);
-        ServletContainer servletContainer = new ServletContainer(servletHolder);
-        webAppContext.
-        froescheServer.setHandler(applicationContext);
-
-        froescheServer.setHandler(webAppContext);
- */
         WebAppContext webAppContext = new WebAppContext();
         webAppContext.setContextPath("/rest");
         webAppContext.setBaseResource(Resource.newClassPathResource("/webapp"));
         webAppContext.setDescriptor("server/src/main/resources/webapp/WEB-INF/web.xml");
-        ServletContextHandler contextHandler = new ServletContextHandler();
-        //DefaultServlet defaultServlet = new DefaultServlet();
-        //ServletHolder holderPwd = new ServletHolder("default", defaultServlet);
-        //webAppContext.addServlet(holderPwd,"/webapp");
-
-        //ServletContainer servletContainer = new ServletContainer();
-
-       // ApplicationContext ctx =
-        //        new ClassPathXmlApplicationContext("/webapp/WEB-INF/spring/applicationContext.xml");
-       // XmlWebApplicationContext xmlWebApplicationContext = new XmlWebApplicationContext();
-       // xmlWebApplicationContext.setServletContext(webAppContext.getServletContext());
-      //  xmlWebApplicationContext.setParent(ctx);
-        //xmlWebApplicationContext.setServletContext(servletContainer);
-        //xmlWebApplicationContext.setServletContext(contextHandler.getServletContext());
-        //xmlWebApplicationContext.refresh();
-        //webAppContext.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, xmlWebApplicationContext);
-/*DispatcherServlet dispatcherServlet = new DispatcherServlet();
-dispatcherServlet.setApplicationContext(new ClassPathXmlApplicationContext("/webapp/WEB-INF/spring/applicationContext.xml"));
-      ServletHolder sd = new ServletHolder();
-      sd.setServlet(dispatcherServlet);
-        ServletContextHandler contextHandler1 = new ServletContextHandler();
-        webAppContext.addServlet(sd,"/rest2");*/
-        //froescheServer.setHandler(getServletContextHandler());
         froescheServer.setHandler(webAppContext);
 
-        //addRuntimeShutdownHook(froescheServer);
-
+        addRuntimeShutdownHook(froescheServer);
 
         froescheServer.start();
         froescheServer.join();
     }
-
-
-    private static ServletContextHandler getServletContextHandler() throws IOException {
-        ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS); // SESSIONS requerido para JSP
-        contextHandler.setErrorHandler(null);
-
-        contextHandler.setResourceBase(new ClassPathResource(WEBAPP_DIRECTORY).getURI().toString());
-        contextHandler.setContextPath(CONTEXT_PATH);
-
-        // Spring
-        WebApplicationContext webAppContext = getWebApplicationContext();
-        DispatcherServlet dispatcherServlet = new DispatcherServlet(webAppContext);
-        ServletHolder springServletHolder = new ServletHolder("mvc-dispatcher", dispatcherServlet);
-        contextHandler.addServlet(springServletHolder, MAPPING_URL);
-        contextHandler.addEventListener(new ContextLoaderListener(webAppContext));
-
-        return contextHandler;
-    }
-
-    private static WebApplicationContext getWebApplicationContext() {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation(CONFIG_LOCATION_PACKAGE);
-        return context;
-    }
-
-
 
     private static void addRuntimeShutdownHook(final Server server) {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
